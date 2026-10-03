@@ -1,0 +1,20 @@
+# Swift Package Manager
+.build/
+.swiftpm/
+.build-arm64/
+.build-x86_64/
+
+# App bundle produced by make_app.sh
+build/
+
+# Xcode
+xcuserdata/
+DerivedData/
+*.xcodeproj/
+
+# macOS
+.DS_Store
+
+# CI / tooling
+*.log
+.swift-version
