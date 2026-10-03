@@ -17,4 +17,4 @@ DerivedData/
 
 # CI / tooling
 *.log
-.swift-version
+.swift-versionAssets/AppIcon.iconset/

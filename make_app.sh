@@ -13,8 +13,13 @@ swift build -c release
 
 echo "==> Assembling $BUNDLE"
 rm -rf "$BUNDLE"
-mkdir -p "$BUNDLE/Contents/MacOS"
+mkdir -p "$BUNDLE/Contents/MacOS" "$BUNDLE/Contents/Resources"
 cp "$BIN" "$BUNDLE/Contents/MacOS/$APP_NAME"
+
+# App icon (regenerate with Assets/make_icon.sh if it changes).
+if [ -f "Assets/AppIcon.icns" ]; then
+  cp "Assets/AppIcon.icns" "$BUNDLE/Contents/Resources/AppIcon.icns"
+fi
 
 cat > "$BUNDLE/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
@@ -25,6 +30,8 @@ cat > "$BUNDLE/Contents/Info.plist" <<PLIST
 	<string>en</string>
 	<key>CFBundleExecutable</key>
 	<string>$APP_NAME</string>
+	<key>CFBundleIconFile</key>
+	<string>AppIcon</string>
 	<key>CFBundleIdentifier</key>
 	<string>$BUNDLE_ID</string>
 	<key>CFBundleInfoDictionaryVersion</key>

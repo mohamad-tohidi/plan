@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <title>plan</title>
+  <!-- Hay board background (Big Sur style rounded square) -->
+  <rect width="1024" height="1024" rx="228" fill="#EFE6C7"/>
+
+  <!-- Task card with a soft shadow, like the cards on the board -->
+  <rect x="236" y="286" width="552" height="452" rx="56" fill="#000000" opacity="0.07"/>
+  <rect x="236" y="262" width="552" height="452" rx="56" fill="#FFFFFF"/>
+
+  <!-- The red done-check -->
+  <path d="M 356 522 L 470 636 L 692 388"
+        fill="none" stroke="#D92E24" stroke-width="76"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
