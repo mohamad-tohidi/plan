@@ -11,7 +11,7 @@ struct WhiteboardScrumPlannerApp: App {
     }
 
     var body: some Scene {
-        WindowGroup("Whiteboard Scrum Planner") {
+        WindowGroup("plan") {
             BoardView()
                 .environment(store)
                 .frame(minWidth: 1100, minHeight: 560)

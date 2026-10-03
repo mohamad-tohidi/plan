@@ -2,12 +2,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "WhiteboardScrumPlanner",
+    name: "plan",
     platforms: [.macOS(.v14)],
     targets: [
         .executableTarget(
-            name: "WhiteboardScrumPlanner",
-            path: "Sources/WhiteboardScrumPlanner"
+            name: "plan",
+            path: "Sources/plan"
         )
     ]
 )

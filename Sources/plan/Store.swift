@@ -20,12 +20,31 @@ final class Store {
     private var fileURL: URL {
         let base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
             ?? FileManager.default.temporaryDirectory
-        let dir = base.appendingPathComponent("WhiteboardScrumPlanner", isDirectory: true)
+        let dir = base.appendingPathComponent("plan", isDirectory: true)
         try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         return dir.appendingPathComponent("board.json")
     }
 
+    private var legacyFileURL: URL {
+        let base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
+            ?? FileManager.default.temporaryDirectory
+        return base
+            .appendingPathComponent("WhiteboardScrumPlanner", isDirectory: true)
+            .appendingPathComponent("board.json")
+    }
+
     init() {
+        // One-time migration from the old app name.
+        let fm = FileManager.default
+        if !fm.fileExists(atPath: fileURL.path), fm.fileExists(atPath: legacyFileURL.path) {
+            do {
+                try fm.createDirectory(at: fileURL.deletingLastPathComponent(), withIntermediateDirectories: true)
+                try fm.copyItem(at: legacyFileURL, to: fileURL)
+            } catch {
+                NSLog("plan migration failed: \(error)")
+            }
+        }
+
         if let data = try? Data(contentsOf: fileURL),
            let state = try? JSONDecoder().decode(BoardState.self, from: data) {
             projects = state.projects

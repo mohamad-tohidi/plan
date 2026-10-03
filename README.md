@@ -1,17 +1,19 @@
-# Whiteboard Scrum Planner
+# plan
 
-A native macOS app (Swift + SwiftUI) for planning a two-week sprint on a clean,
-minimal board: **projects as rows**, **exactly two weeks as columns**, and
-**simple white task cards** in the cells. Hay-colored background, hairline
-grid, system typography — no decoration.
+A tiny native macOS app (Swift + SwiftUI) for planning a two-week sprint on
+a clean, minimal board: **projects as rows**, **exactly two weeks as
+columns**, and **simple white task cards** in the cells. Hay-colored
+background, hairline grid, system typography — no decoration.
 
-## Build & run
+## Build & install
 
 ```sh
-swift run                # run from the terminal (debug build)
-./make_app.sh            # build a double-clickable build/WhiteboardScrumPlanner.app
-open build/WhiteboardScrumPlanner.app
+./make_app.sh     # builds and installs /Applications/plan.app
+open /Applications/plan.app
 ```
+
+If `/Applications` isn't writable it installs to `~/Applications` instead.
+For a quick dev run: `swift run`.
 
 Requires macOS 14+ and a Swift toolchain (Xcode or Command Line Tools).
 
@@ -30,7 +32,7 @@ Only the essential things:
 - **Projects** — rows can be added (`A` or `+ Add project`), renamed
   (double-click the name or `r`), and removed (hover ✕ or `D`).
 - **Persistence** — everything auto-saves (debounced while typing) to
-  `~/Library/Application Support/WhiteboardScrumPlanner/board.json`.
+  `~/Library/Application Support/plan/board.json`.
 
 The board is deliberately fixed at two weeks. The cursor (the highlighted
 cell/card) is the target for all vim commands.
@@ -62,7 +64,7 @@ Closures: none — every shortcut is a single key, vim-style.
 ## Layout
 
 ```
-Sources/WhiteboardScrumPlanner/
+Sources/plan/
   App.swift          entry point, window sizing, hidden offscreen-render tool
   Models.swift       TaskCard / Project / Week / BoardState
   Store.swift        @Observable store + JSON persistence + sample data
@@ -72,8 +74,8 @@ Sources/WhiteboardScrumPlanner/
   TaskCardView.swift card UI — done toggle + celebration, in-place edit, drag
 ```
 
-Dev tool: `WBP_RENDER=/path.png make run` renders the board offscreen to a PNG
-(headless visual check). `ImageRenderer` has two quirks to know about:
+Dev tool: `WBP_RENDER=/path.png .build/debug/plan` renders the board offscreen to
+a PNG (headless visual check). `ImageRenderer` has two quirks to know about:
 `ScrollView` content is not laid out offscreen (the sheet is rendered
 directly), and `.dropDestination` paints an opaque yellow drop-target backdrop
 in offscreen renders only — it is invisible in the live app.
